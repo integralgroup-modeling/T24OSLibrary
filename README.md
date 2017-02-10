@@ -2,9 +2,11 @@
 OpenStudio Library for Title 24 models
 
 ##Ruby Script to Build T24 Schedules, Load Definitions, and Space Types
-run ```ruby buildT24osm.rb```
-Schedules and Space Types are available online in the [CBECC-COM T24 Documentation](https://sourceforge.net/p/cbecc-com/code/HEAD/tree/trunk/Documentation/T24N/).  These are downloaded in the ```resources``` folder.
-You can make these space types and schedule sets available for assignment in your model in OpenStudio through "File->Load Library".
+run ```ruby buildT24osm.rb``` to build the ```T24library.osm``` file.
+
+Schedules and Space Types are available online in the [CBECC-COM T24 Documentation](https://sourceforge.net/p/cbecc-com/code/HEAD/tree/trunk/Documentation/T24N/) and in the ```resources``` folder.
+
+You can make these space types and schedule sets available for assignment in your OpenStudio model through "File->Load Library".
 
 ##Important notes: 
   - Schedules are built using Schedule:Year, which are not editable in the app.  If you want to adjust a schedule, you will need to make a new Ruleset Schedule.
