@@ -15,7 +15,7 @@ schedule_type_limits_hash.each do |s|
     schedule_type_limit.setLowerLimitValue(s[:lowerlimitvalue])
   end
   if s[:upperlimitvalue]
-    schedule_type_limit.setUpperLimitValue(s[:lowerlimitvalue])
+    schedule_type_limit.setUpperLimitValue(s[:upperlimitvalue])
   end
   if s[:numerictype]
     schedule_type_limit.setNumericType(s[:numerictype])
