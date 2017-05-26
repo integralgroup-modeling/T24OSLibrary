@@ -108,6 +108,12 @@ default_schedule_sets = model.getDefaultScheduleSets
 #read in space types and transform to array of hashes
 raw_data =  CSV.table("#{Dir.pwd}/resources/T24_SpaceTypes_Partial.csv")
 space_type_hash = raw_data.map { |row| row.to_hash }
+
+#for each space type, remove commas and spaces 
+space_type_hash.each do |spc|
+  spc[:functype] = spc[:functype].gsub(/[\s,]/ ,"")
+end
+
 #for each space type, make the load objects and assign the default schedule
 space_type_hash.each do |spc|
   space_type = OpenStudio::Model::SpaceType.new(model)
