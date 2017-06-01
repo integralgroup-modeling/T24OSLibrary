@@ -200,5 +200,27 @@ space_type_hash.each do |spc|
 
 end #end space_type_hash.each 
 
+#read in space types and transform to array of hashes
+raw_data =  CSV.table("#{Dir.pwd}/resources/T24_MaterialData.csv")
+material_hash = raw_data.map { |row| row.to_hash }
+
+#for each space type, remove commas and spaces 
+material_hash.each do |mat|
+  thickness = OpenStudio.convert(mat[:thickness],"in","m").get
+  resistance = OpenStudio.convert(mat[:resistance],"ft^2*h*R/Btu","m^2*K/W").get
+  conductivity = OpenStudio.convert(mat[:conductivity],"Btu/ft*h*R","W/m*K").get
+  density = OpenStudio.convert(mat[:density],"lb/ft^3","kg/m^3").get
+  specificheat = OpenStudio.convert(mat[:specificheat],"Btu/lb*R","J/kg*K").get
+  roughness = mat[:roughness].to_s
+
+  if mat[:materialcategory] == "Air"    
+    air_gap_mat = OpenStudio::Model::AirGap.new(model, resistance)  
+    air_gap_mat.setName(mat[:materialname])
+  else
+    standard_mat = OpenStudio::Model::StandardOpaqueMaterial.new(model, roughness, thickness, conductivity, density, specificheat)
+    standard_mat.setName(mat[:materialname])
+  end  
+end
+
 #save model
 model.save("#{Dir.pwd}/T24library.osm",true)
